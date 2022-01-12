@@ -25,7 +25,8 @@ exports.createUrl = (req, res) => {
 };
 
 exports.createRandomUrl = async (req, res) => {
-    const { longUrl, owner } = req.body;
+    const { longUrl } = req.body;
+    const { user: owner } = req.query;
     try {
         // check if user has already shortened the URL
 
@@ -60,7 +61,8 @@ exports.createRandomUrl = async (req, res) => {
 };
 
 exports.createRequestedUrl = async (req, res) => {
-    const { longUrl, requestedShortUrl: shortUrl, owner } = req.body;
+    const { longUrl, requestedShortUrl: shortUrl } = req.body;
+    const { user: owner } = req.query;
     try {
         // check if user has already shortened the URL
 
@@ -95,7 +97,7 @@ exports.createRequestedUrl = async (req, res) => {
 };
 
 exports.updateUrl = async (req, res) => {
-    const { owner } = req.body;
+    const { user: owner } = req.query;
     if (!req.urlProfile || owner != req.urlProfile.owner.toString()) {
         return res.status(403).json({
             msg: 'You are not the owner'
