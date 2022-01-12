@@ -91,9 +91,9 @@ exports.changeEmail = async (req, res) => {
         if (user.otp != otp)
             return res.status(401).json({ error: 'Incorrect OTP' });
 
-        const another = await User.findOne({ email });
+        const another = await User.findOne({ email: newEmail });
 
-        if (!another._id)
+        if (another)
             return res.status(403).json({ error: 'Email is already used' });
 
         user.otp = -1;
@@ -114,7 +114,7 @@ exports.deleteUser = async (req, res) => {
     try {
         const deletedUrls = await Url.deleteMany({ owner: _id });
         const deletedUser = await User.findByIdAndDelete(_id);
-        console.log(deletedUser, deletedUrls);
+        // console.log(deletedUser, deletedUrls);
         res.clearCookie('token');
         return res.json({ msg: 'Account deleted' });
     } catch (error) {
