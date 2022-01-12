@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -11,7 +9,7 @@ const userRoutes = require('./routes/user');
 const urlRoutes = require('./routes/url');
 const shortUrlRoutes = require('./routes/shortUrl');
 
-const { PORT = 8000, DATABASE } = process.env;
+const { PORT, DATABASE } = require('./env');
 
 // DB Connection
 

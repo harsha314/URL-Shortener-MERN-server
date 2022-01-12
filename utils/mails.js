@@ -1,18 +1,15 @@
-require('dotenv').config();
-
 const nodemailer = require('nodemailer');
+
+const { MAIL_ID, MAIL_PASS } = require('../env');
 
 exports.sendOtp = async (userMailAddress, otp, type = 'registration') => {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
-        auth: {
-            user: process.env.MAIL_ID,
-            pass: process.env.MAIL_PASS
-        }
+        auth: { user: MAIL_ID, pass: MAIL_PASS }
     });
 
     let mailOptions = {
-        from: process.env.MAIL_ID,
+        from: MAIL_ID,
         to: userMailAddress,
         subject: 'No Reply',
         text: `${otp} is OTP for ${type}`
